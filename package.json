@@ -1,0 +1,20 @@
+{
+  "name": "student-login",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@antiadmin/anticaptchaofficial": "^1.0.45",
+    "dotenv": "^16.4.5",
+    "mysql": "^2.18.1",
+    "paralleljs": "^1.1.0",
+    "puppeteer": "^22.5.0",
+    "sharp": "^0.33.2"
+  }
+}
