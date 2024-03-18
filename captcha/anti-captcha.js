@@ -5,7 +5,7 @@ require('dotenv').config();
 const APIKEY = process.env.APIKEY;
 
 async function getCaptchaText(id) {
-    const captchaPath = path.join(__dirname, 'captcha', `${id}.png`);
+    const captchaPath = path.join(__dirname, 'images', `${id}.png`);
 
     const captcha = fs.readFileSync(captchaPath, { encoding: 'base64' });
 

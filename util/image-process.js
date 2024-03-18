@@ -12,9 +12,8 @@ async function increaseImageSize(inputFilePath) {
             imageData = Buffer.concat([imageData, padding]);
             await fs.writeFile(inputFilePath, imageData);
             console.log('Image file size increased successfully');
-        } else {
-            console.log('Image file size is already greater than or equal to 100 bytes');
         }
+        
     } catch (error) {
         console.error('Error increasing image file size:', error);
     }

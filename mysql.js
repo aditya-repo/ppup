@@ -1,19 +1,28 @@
 require('dotenv').config()
 
+// SQL Query Syntax
+const QUERY = "SELECT * FROM semesterdata where college = 401 AND admissionID != '202340100001' limit 2"
+
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-    host: process.env.DBHOST,
-    user: process.env.DBUSERNAME,
-    password: process.env.DBPASS,
-    database: process.env.DBHOST
+    // host: process.env.DBHOST,
+    // user: process.env.DBUSERNAME,
+    // password: process.env.DBPASS,
+    // database: process.env.DBHOST
+    host: '103.102.234.154',
+    user: 'oafportal_in',
+    password: 'v7h8KivaLyEYFKtw',
+    database: 'oafportal_in'
 });
+
+// console.log(connection);
 
 // Function to connect to MySQL and fetch form data
 const fetchFormData = () => {
     return new Promise((resolve, reject) => {
         connection.connect();
-        connection.query('SELECT * FROM semesterdata where college = 401 limit 1', (error, results) => {
+        connection.query(QUERY, (error, results) => {
             if (error) {
                 reject(error);
             } else {

@@ -1,17 +1,19 @@
-const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
-const puppeteer = require('puppeteer');
-const path = require('path');
-const convertToJson = require('./mysql');
-const submitForm = require('./form');
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads')
+const puppeteer = require('puppeteer')
+const mysqlData = require('./mysql')
+const submitForm = require('./form')
+require('dotenv').config()
+
+const THREAD_COUNT = process.env.THREAD
 
 // Import the data from database to memory
-const jsonDataPromise = convertToJson();
+const jsonDataPromise = mysqlData();
 
 jsonDataPromise.then(data => {
     // Launch workers
     const forms = data;
     if (isMainThread) {
-        const threadCount = 1;
+        const threadCount = THREAD_COUNT;
         launchWorkers(forms, threadCount);
     } else {
         const { workerId, forms } = workerData;
@@ -61,8 +63,10 @@ async function launchWorker(workerId, forms) {
 
 async function launchWorkers(forms, threadCount) {
     const workers = [];
+    
+    const dataCount = process.env.DATA_COUNT || forms.length
 
-    const chunkSize = Math.ceil(forms.length / threadCount);
+    const chunkSize = Math.ceil(dataCount / threadCount);
 
     for (let i = 0; i < threadCount; i++) {
         const start = i * chunkSize;
